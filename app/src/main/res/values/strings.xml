@@ -16,4 +16,8 @@
     <string name="home">Главная</string>
     <string name="favorite">Избранное</string>
     <string name="account">Аккаунт</string>
+
+    <string name="recycler_content_descr">course recycler</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

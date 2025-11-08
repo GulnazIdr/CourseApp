@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:fitsSystemWindows="true"
+    tools:context=".presentation.fragments.HomeFragment">
+
+    <LinearLayout
+        android:id="@+id/action_group"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/search_field"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/custom_edit_text">
+
+            <ImageView
+                android:src="@drawable/search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp" />
+
+            <EditText
+                android:id="@+id/searchField"
+                style="@style/BodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/search_placeholder"
+                android:paddingStart="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/filter_btn"
+            android:padding="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/custom_edit_text"
+            android:src="@drawable/filter_icon" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp">
+        <TextView
+            android:id="@+id/filter_choice"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_filter"
+            android:textColor="@color/green" />
+        <ImageView
+            android:src="@drawable/arrow_down_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <include android:id="@+id/recycler"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        layout="@layout/course_card_recycler" />
+
+</LinearLayout>

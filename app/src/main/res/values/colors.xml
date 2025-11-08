@@ -10,4 +10,5 @@
     <color name="orange_dark">#F95D00</color>
     <color name="dark_gray">#24252A</color>
     <color name="glass">#32191C24</color>
+    <color name="light_gray">#32333A</color>
 </resources>
