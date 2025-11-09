@@ -18,17 +18,19 @@
         <LinearLayout
             android:id="@+id/search_field"
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="56dp"
             android:gravity="center_vertical"
             android:background="@drawable/custom_edit_text">
 
             <ImageView
+                android:contentDescription="@string/search_icon"
                 android:src="@drawable/search_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp" />
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
 
             <EditText
                 android:id="@+id/searchField"
@@ -37,7 +39,6 @@
                 android:layout_height="40dp"
                 android:background="@drawable/custom_edit_text"
                 android:hint="@string/search_placeholder"
-                android:paddingStart="16dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -45,6 +46,7 @@
 
         <ImageView
             android:id="@+id/filter_btn"
+            android:contentDescription="@string/filter_icon"
             android:padding="16dp"
             android:layout_marginStart="8dp"
             android:layout_width="56dp"

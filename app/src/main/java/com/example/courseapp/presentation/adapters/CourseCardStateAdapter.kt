@@ -1,14 +1,18 @@
 package com.example.courseapp.presentation.adapters
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.courseapp.R
 import com.example.courseapp.databinding.CourseCardItemBinding
 import com.example.courseapp.presentation.classes.CourseMainInfo
 
 class CourseCardStateAdapter(
-    private val courseList: List<CourseMainInfo>
+    private val courseList: List<CourseMainInfo>,
+    private val context: Context?
 ): RecyclerView.Adapter<CourseCardStateAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         p0: ViewGroup,
@@ -22,10 +26,6 @@ class CourseCardStateAdapter(
         return p0.bind(courseList[p1])
     }
 
-//    override fun getItemViewType(position: Int): Int {
-//        return courseList[position].id
-//    }
-
     override fun getItemCount(): Int {
         return courseList.size
     }
@@ -35,12 +35,18 @@ class CourseCardStateAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(card: CourseMainInfo){
-            binding.cardCover.setImageURI(card.img.toUri())
+            try {
+                binding.cardCover.setImageResource(card.img)
+            }catch (e: Exception){
+                Log.e("set image resource ${card.img} failed: ", "${e.message} ${e::class.simpleName}")
+                binding.cardCover.setImageResource(R.drawable.java_image)
+            }
+
             binding.cardTitle.text = card.title
             binding.cardDescr.text = card.descr
             binding.cardPrice.text = card.price.toString()
             binding.rate.text = card.rate.toString()
-            binding.courseDate.text = card.date.toString()
+            binding.courseDate.text = card.startDate.toString()
         }
     }
 }

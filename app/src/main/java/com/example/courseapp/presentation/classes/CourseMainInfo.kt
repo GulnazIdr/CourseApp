@@ -8,7 +8,8 @@ data class CourseMainInfo(
     val descr: String,
     val price: Float,
     val rate: Float,
-    val date: LocalDate,
-    val isFavoirite: Boolean,
-    val img: String
+    val startDate: LocalDate,
+    val publishDate: LocalDate,
+    val isFavorite: Boolean,
+    val img: Int
 )
