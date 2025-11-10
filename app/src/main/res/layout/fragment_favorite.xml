@@ -6,7 +6,7 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.fragments.FavoriteFragment">
+    tools:context=".presentation.main.favorite.FavoriteFragment">
 
     <TextView
         style="@style/TitleLarge"

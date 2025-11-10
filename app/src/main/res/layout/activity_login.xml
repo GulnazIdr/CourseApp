@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -48,13 +50,25 @@
         tools:ignore="TouchTargetSizeCheck"/>
 
     <TextView
+        android:id="@+id/emailErrorField"
+        style="@style/ButtonSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailField"
+        android:text="@string/email_error"
+        android:visibility="gone"/>
+
+    <TextView
         android:id="@+id/passwordTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text = "@string/password_title"
         style="@style/TitleMedium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailField"
+        app:layout_constraintTop_toBottomOf="@id/emailErrorField"
         android:layout_marginTop="28dp"/>
 
     <EditText
@@ -71,6 +85,18 @@
         app:layout_constraintTop_toBottomOf="@id/passwordTitle"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <TextView
+        android:id="@+id/passwordErrorField"
+        style="@style/ButtonSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/password_error"
+        android:textColor="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordField"
+        android:visibility="gone"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
@@ -79,10 +105,11 @@
         android:background="@drawable/custom_button_green"
         android:text="@string/login"
         style="@style/Button"
+        android:enabled="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/passwordErrorField"
         tools:ignore="TouchTargetSizeCheck" />
 
     <LinearLayout

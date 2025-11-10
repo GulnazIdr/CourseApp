@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.courseapp.R
 import com.example.courseapp.data.retrofit.CourseDto
-import com.example.courseapp.presentation.classes.CourseMainInfo
+import com.example.courseapp.presentation.main.CourseMainInfo
 import java.time.LocalDate
 
 abstract class RemoteMapper{

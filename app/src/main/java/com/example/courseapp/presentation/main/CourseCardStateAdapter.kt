@@ -1,14 +1,13 @@
-package com.example.courseapp.presentation.adapters
+package com.example.courseapp.presentation.main
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseapp.R
 import com.example.courseapp.databinding.CourseCardItemBinding
-import com.example.courseapp.presentation.classes.CourseMainInfo
+import com.example.courseapp.presentation.main.CourseMainInfo
 
 class CourseCardStateAdapter(
     private val courseList: List<CourseMainInfo>,

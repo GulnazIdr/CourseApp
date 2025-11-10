@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -39,6 +41,13 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.code.gson:gson:2.9.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("com.google.dagger:dagger:2.57.1")
+    ksp("com.google.dagger:dagger-compiler:2.57.1")
+
     val nav_version = "2.9.6"
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
@@ -46,6 +55,7 @@ dependencies {
     val appcompat_version = "1.7.1"
     implementation("androidx.appcompat:appcompat:$appcompat_version")
     implementation("androidx.appcompat:appcompat-resources:$appcompat_version")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

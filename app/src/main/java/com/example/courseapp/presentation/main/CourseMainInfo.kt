@@ -1,4 +1,4 @@
-package com.example.courseapp.presentation.classes
+package com.example.courseapp.presentation.main
 
 import java.time.LocalDate
 
