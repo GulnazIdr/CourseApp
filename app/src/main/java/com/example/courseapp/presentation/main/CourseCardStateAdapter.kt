@@ -43,7 +43,8 @@ class CourseCardStateAdapter(
 
             binding.cardTitle.text = card.title
             binding.cardDescr.text = card.descr
-            binding.cardPrice.text = card.price.toString()
+            binding.cardPrice.text =
+                context?.getString(R.string.price, card.price) ?: card.price.toString()
             binding.rate.text = card.rate.toString()
             binding.courseDate.text = card.startDate.toString()
         }

@@ -18,11 +18,11 @@
     <string name="account">Аккаунт</string>
 
     <string name="recycler_content_descr">course recycler</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_icon">search icon</string>
     <string name="filter_icon">filter_icon</string>
 
     <string name="email_error">Некорректный email</string>
     <string name="password_error">Некорректный пароль</string>
+
+    <string name="price">%1$d ₽</string>
 </resources>

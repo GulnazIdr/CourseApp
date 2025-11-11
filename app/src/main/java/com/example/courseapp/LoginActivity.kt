@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Lifecycle
@@ -16,18 +17,31 @@ import com.example.courseapp.presentation.MainActivity
 import com.example.courseapp.presentation.login.AuthorizationViewModel
 import kotlinx.coroutines.launch
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
+import com.example.courseapp.app.CourseApplication
+import com.example.courseapp.presentation.login.AuthViewModelFactory
+import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
+import com.example.courseapp.presentation.main.CourseViewModel
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
+    @Inject
+    lateinit var vmFactory: AuthViewModelFactory
     private lateinit var binding: ActivityLoginBinding
-    private val authorizationViewModel: AuthorizationViewModel by viewModels()
+    private lateinit var authorizationViewModel: AuthorizationViewModel
     private val VK_URL = "https://vk.com/"
     private val OK_URL  = "https://ok.ru/"
+
+    private var loadingDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        (applicationContext as CourseApplication).appComponent.inject(this)
+        authorizationViewModel = ViewModelProvider(this, vmFactory)[AuthorizationViewModel::class.java]
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -46,6 +60,13 @@ class LoginActivity : AppCompatActivity() {
                 launch {
                     authorizationViewModel.isFormValid.collect {
                         binding.loginButton.isEnabled = it
+                    }
+                }
+
+                launch {
+                    authorizationViewModel.isLoading.collect {
+                        if(it) showLoading()
+                        else loadingDialog?.dismiss()
                     }
                 }
             }
@@ -69,10 +90,22 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.loginButton.setOnClickListener {
+            authorizationViewModel.saveUser(
+                binding.emailField.text.toString(), binding.passwordField.text.toString()
+            )
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
+    }
 
+    fun showLoading(){
+        if (loadingDialog == null) {
+            loadingDialog = AlertDialog.Builder(applicationContext)
+                .setMessage("Loading...")
+                .setCancelable(false)
+                .create()
+        }
+        loadingDialog?.show()
     }
 }

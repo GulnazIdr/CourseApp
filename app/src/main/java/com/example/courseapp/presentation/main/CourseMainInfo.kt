@@ -6,7 +6,7 @@ data class CourseMainInfo(
     val id: Int,
     val title: String,
     val descr: String,
-    val price: Float,
+    val price: Int,
     val rate: Float,
     val startDate: LocalDate,
     val publishDate: LocalDate,

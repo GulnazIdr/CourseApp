@@ -7,20 +7,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:padding="16dp"
+    android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/titleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lineHeight="36dp"
+        style="@style/Headline"
         android:text="@string/login"
-        android:textColor="@color/white"
-        android:textFontWeight="400"
-        android:fontFamily="@font/roboto_regular"
-        android:textSize="28sp"
         android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +34,9 @@
 
     <EditText
         android:id="@+id/emailField"
+        android:singleLine="true"
         style="@style/BodyMedium"
+        android:gravity="fill_vertical"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -74,7 +73,9 @@
     <EditText
         android:id="@+id/passwordField"
         style="@style/BodyMedium"
+        android:singleLine="true"
         android:layout_width="match_parent"
+        android:gravity="fill_vertical"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_edit_text"
@@ -106,10 +107,9 @@
         android:text="@string/login"
         style="@style/Button"
         android:enabled="false"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordErrorField"
+        app:layout_constraintTop_toBottomOf="@id/passwordErrorField"
         tools:ignore="TouchTargetSizeCheck" />
 
     <LinearLayout
@@ -127,7 +127,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/no_account"
-            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -155,14 +154,14 @@
         app:layout_constraintTop_toBottomOf="@id/registration_group" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/line"
         android:layout_width="328dp"
         android:layout_height="1dp"
         android:layout_marginTop="32dp"
         android:background="@color/stroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgot_password_text" />
+        app:layout_constraintTop_toBottomOf="@id/forgot_password_text" />
 
     <LinearLayout
         android:id="@+id/contacts_group"
@@ -170,7 +169,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@id/line"
         android:layout_marginTop="32dp">
 
         <LinearLayout
