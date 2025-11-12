@@ -1,6 +1,7 @@
 package com.example.courseapp.data.local
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.courseapp.data.local.dao.CourseDao
 import com.example.courseapp.data.local.entity.CourseEntity
@@ -10,17 +11,17 @@ import com.example.courseapp.presentation.main.CourseMainInfo
 import javax.inject.Inject
 
 class LocalCourseRepository @Inject constructor(
-    internal val courseDao: CourseDao,
-    internal val dataStoreRepository: DataStoreRepository
+    private val courseDao: CourseDao,
+    private val dataStoreRepository: DataStoreRepository
 ):CourseMapper() {
 
     @RequiresApi(Build.VERSION_CODES.O)
      suspend fun fetchCourses(): List<CourseMainInfo> {
-        return courseDao.fetchCourses().map { it.toCourseUI() }
+        return courseDao.fetchCourses(dataStoreRepository.getCurrentUserId()).map { it.toCourseUI() }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun saveCourses(courseMainInfo: CourseMainInfo){
+    suspend fun saveCourses(courseMainInfo: CourseMainInfo){
         courseDao.saveCourse(courseMainInfo.toCourseLocal(
             userId = dataStoreRepository.getCurrentUserId()
         ))
@@ -30,13 +31,9 @@ class LocalCourseRepository @Inject constructor(
         return courseDao.getCourseById(id, dataStoreRepository.getCurrentUserId()) != null
     }
 
-    suspend fun setFavoriteById(id: Int, isFavorite: Boolean){
-        val course = courseDao.getCourseById(id, dataStoreRepository.getCurrentUserId())!!
-
-        courseDao.setFavoriteById(CourseEntity(
-            id, course.title, course.descr, course.price, course.rate, course.startDate,
-            course.publishDate, isFavorite, course.img, course.userId
-        ))
+    suspend fun setFavoriteById(id: Int){
+        Log.d("LOADING4", "$id ${ dataStoreRepository.getCurrentUserId()}")
+        courseDao.updateFavoriteStatus(id, dataStoreRepository.getCurrentUserId())
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

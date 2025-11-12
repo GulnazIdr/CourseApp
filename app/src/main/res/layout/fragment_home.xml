@@ -34,17 +34,14 @@
 
             <EditText
                 android:id="@+id/searchField"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_gravity="fill_horizontal"
                 android:background="@drawable/custom_edit_text"
                 android:fontFamily="@font/roboto_regular"
-                android:gravity="fill_vertical"
                 android:hint="@string/search_placeholder"
                 android:letterSpacing="0.025"
                 android:lineHeight="18sp"
-                android:maxLines="1"
-                android:scrollHorizontally="false"
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white50"
@@ -89,5 +86,4 @@
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         layout="@layout/course_card_recycler" />
-
 </LinearLayout>

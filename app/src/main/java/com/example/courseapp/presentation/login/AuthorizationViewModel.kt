@@ -4,19 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseapp.data.local.LocalUserRepository
 import com.example.courseapp.domain.DataStoreRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import okhttp3.internal.Internal
 import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(
-    internal val localUserRepository: LocalUserRepository,
-    internal val dataStoreRepository: DataStoreRepository
+    private val localUserRepository: LocalUserRepository,
+    private val dataStoreRepository: DataStoreRepository
 )  : ViewModel() {
     private val _isEmailCorrect = MutableStateFlow<Boolean>(false)
     val isEmailCorrect: StateFlow<Boolean> = _isEmailCorrect.asStateFlow()
@@ -24,7 +23,7 @@ class AuthorizationViewModel @Inject constructor(
     private val _isPasswordCorrect = MutableStateFlow<Boolean>(false)
     val isPasswordCorrect: StateFlow<Boolean> = _isPasswordCorrect.asStateFlow()
 
-    private val _isLoading = MutableStateFlow<Boolean>(true)
+    private val _isLoading = MutableStateFlow<Boolean>(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
      val isFormValid = combine(
@@ -47,14 +46,14 @@ class AuthorizationViewModel @Inject constructor(
         _isPasswordCorrect.value = password.isNotEmpty()
     }
 
-    fun saveUser(email: String, password: String){
+    fun saveUser(email: String, password: String) =  viewModelScope.async {
         if (isFormValid.value) {
             _isLoading.value = true
-            viewModelScope.launch {
-                dataStoreRepository.saveCurrentUserId(email)
-                localUserRepository.saveUser(UserMainInfo(email, password))
+            dataStoreRepository.saveCurrentUserId(email)
+                if (localUserRepository.getUserById(email) == null)
+                    localUserRepository.saveUser(UserMainInfo(email, password))
             }
             _isLoading.value = false
         }
-    }
+
 }

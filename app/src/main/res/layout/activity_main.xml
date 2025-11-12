@@ -31,7 +31,7 @@
         app:itemTextColor="@color/bottom_nav_selector"
         app:itemRippleColor="@null"
         style="@style/LabelMedium"
-        android:theme="@style/ThemeOverlay.App.BottomNavigationView"
+        android:theme="@style/ThemeOverlay.App.CustomBottomNavigationView"
         app:menu="@menu/bottom_navigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

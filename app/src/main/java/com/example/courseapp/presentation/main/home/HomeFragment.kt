@@ -7,19 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.courseapp.R
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.FragmentHomeBinding
 import com.example.courseapp.presentation.main.CourseCardStateAdapter
+import com.example.courseapp.presentation.main.CourseMainInfo
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.collections.mutableListOf
 
 class HomeFragment : Fragment() {
     @Inject
@@ -40,7 +44,11 @@ class HomeFragment : Fragment() {
 
         val recyclerView = binding.recycler.courseCardRecycler
         recyclerView.layoutManager = LinearLayoutManager(context)
-        var adapter = CourseCardStateAdapter(mutableListOf(), context)
+
+        var adapter = CourseCardStateAdapter( mutableListOf<CourseMainInfo>(), context){
+            courseViewModel.onFavorite(it)
+        }
+        recyclerView.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -53,27 +61,22 @@ class HomeFragment : Fragment() {
 
                 launch {
                     courseViewModel.courseList.collect {
-                        adapter = CourseCardStateAdapter(it, context)
-                        recyclerView.adapter = adapter
+                        adapter.updateCourseList(it)
                     }
                 }
             }
         }
 
-        binding.filterChoice.setOnClickListener {
-
-        }
+        binding.filterChoice.setOnClickListener {courseViewModel.sortByPublishDate()}
 
         return binding.root
     }
 
     fun showLoading(){
-        if (loadingDialog == null) {
-            loadingDialog = AlertDialog.Builder(requireContext())
-                .setMessage("Loading...")
-                .setCancelable(false)
-                .create()
-        }
+        val loadingView: View = LayoutInflater
+            .from(requireContext())
+            .inflate(R.layout.loading_dialog,null) as ConstraintLayout
+        loadingDialog = AlertDialog.Builder(requireContext()).setView(loadingView).create()
         loadingDialog?.show()
     }
 

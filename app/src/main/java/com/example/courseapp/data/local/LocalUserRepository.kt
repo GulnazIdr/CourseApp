@@ -7,14 +7,14 @@ import com.example.courseapp.presentation.login.UserMainInfo
 import javax.inject.Inject
 
 class LocalUserRepository @Inject constructor(
-    internal val userDao: UserDao
+    private val userDao: UserDao,
 ): UserMapper(), UserRepository{
 
-    override fun saveUser(user: UserMainInfo) {
+    override suspend fun saveUser(user: UserMainInfo) {
         userDao.addNewUser(user.toLocalUser())
     }
 
-    override suspend fun getUserById(id: String): UserMainInfo {
-        return userDao.getUserById(id).toUserUI()
+    override suspend fun getUserById(id: String): UserMainInfo? {
+        return userDao.getUserById(id)?.toUserUI()
     }
 }

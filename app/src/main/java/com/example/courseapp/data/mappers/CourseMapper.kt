@@ -12,16 +12,16 @@ import java.time.LocalDate
 abstract class CourseMapper{
 
     @RequiresApi(Build.VERSION_CODES.O)
-    protected fun CourseDto.toCourseUi(): CourseMainInfo{
+    protected fun CourseDto.toCourseUi(isFavorite: Boolean): CourseMainInfo{
         return CourseMainInfo(
             id = id ?: 0,
             title = title ?: "",
             descr = text ?: "",
-            price = price!!.toIntOrNull() ?: 0,
-            rate = rate!!.toFloatOrNull() ?: 0f,
-            startDate = startDate!!.toLocalDate(),
-            publishDate = publishDate!!.toLocalDate(),
-            isFavorite = hasLike == true,
+            price = price?.replace(" ", "")?.toIntOrNull() ?: 0,
+            rate = rate?.toFloatOrNull() ?: 0f,
+            startDate = startDate?.toLocalDate() ?: LocalDate.now(),
+            publishDate = publishDate?.toLocalDate() ?: LocalDate.now(),
+            isFavorite = isFavorite,
             img = R.drawable.java_image
         )
     }

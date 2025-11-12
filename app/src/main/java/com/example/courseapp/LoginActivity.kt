@@ -1,27 +1,24 @@
 package com.example.courseapp
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.ActivityLoginBinding
 import com.example.courseapp.presentation.MainActivity
-import com.example.courseapp.presentation.login.AuthorizationViewModel
-import kotlinx.coroutines.launch
-import androidx.core.net.toUri
-import androidx.lifecycle.ViewModelProvider
-import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.presentation.login.AuthViewModelFactory
-import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
-import com.example.courseapp.presentation.main.CourseViewModel
+import com.example.courseapp.presentation.login.AuthorizationViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -32,13 +29,10 @@ class LoginActivity : AppCompatActivity() {
     private val VK_URL = "https://vk.com/"
     private val OK_URL  = "https://ok.ru/"
 
-    private var loadingDialog: AlertDialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         (applicationContext as CourseApplication).appComponent.inject(this)
         authorizationViewModel = ViewModelProvider(this, vmFactory)[AuthorizationViewModel::class.java]
@@ -65,8 +59,9 @@ class LoginActivity : AppCompatActivity() {
 
                 launch {
                     authorizationViewModel.isLoading.collect {
-                        if(it) showLoading()
-                        else loadingDialog?.dismiss()
+                       if(it){
+                           Toast.makeText(applicationContext, "Saving...", Toast.LENGTH_SHORT).show()
+                       }
                     }
                 }
             }
@@ -90,22 +85,15 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.loginButton.setOnClickListener {
-            authorizationViewModel.saveUser(
-                binding.emailField.text.toString(), binding.passwordField.text.toString()
-            )
             val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
+            lifecycleScope.launch {
+                val email = binding.emailField.text.toString()
+                val password = binding.passwordField.text.toString()
+                authorizationViewModel.saveUser(email, password)
 
-    fun showLoading(){
-        if (loadingDialog == null) {
-            loadingDialog = AlertDialog.Builder(applicationContext)
-                .setMessage("Loading...")
-                .setCancelable(false)
-                .create()
+                startActivity(intent)
+                finish()
+            }
         }
-        loadingDialog?.show()
     }
 }

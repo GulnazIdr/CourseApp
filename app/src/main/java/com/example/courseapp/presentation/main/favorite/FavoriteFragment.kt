@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +22,6 @@ import com.example.courseapp.presentation.main.CourseMainInfo
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
@@ -44,7 +43,10 @@ class FavoriteFragment : Fragment() {
 
         val recycler = binding.recycler.courseCardRecycler
         recycler.layoutManager = LinearLayoutManager(context)
-        var adapter = CourseCardStateAdapter(mutableListOf(), context)
+        val adapter = CourseCardStateAdapter( mutableListOf<CourseMainInfo>(), context) {
+            courseViewModel.onFavorite(it)
+        }
+        recycler.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -57,8 +59,7 @@ class FavoriteFragment : Fragment() {
 
                 launch {
                     courseViewModel.courseList.collect {
-                        adapter = CourseCardStateAdapter(it.filter { it.isFavorite }, context)
-                        recycler.adapter = adapter
+                        adapter.updateCourseList(it.filter { it.isFavorite })
                     }
                 }
             }
@@ -68,12 +69,10 @@ class FavoriteFragment : Fragment() {
     }
 
     fun showLoading(){
-        if (loadingDialog == null) {
-            loadingDialog = AlertDialog.Builder(requireContext())
-                .setMessage("Loading...")
-                .setCancelable(false)
-                .create()
-        }
+        val loadingView: View = LayoutInflater
+            .from(requireContext())
+            .inflate(R.layout.loading_dialog,null) as ConstraintLayout
+        loadingDialog = AlertDialog.Builder(requireContext()).setView(loadingView).create()
         loadingDialog?.show()
     }
 }

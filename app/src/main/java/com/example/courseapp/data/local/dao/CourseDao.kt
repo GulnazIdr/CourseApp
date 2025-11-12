@@ -1,6 +1,8 @@
 package com.example.courseapp.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
@@ -8,17 +10,19 @@ import com.example.courseapp.data.local.entity.CourseEntity
 
 @Dao
 interface CourseDao{
-    @Query("SELECT * FROM courseentity")
-    suspend fun fetchCourses(): List<CourseEntity>
+    @Query("SELECT * FROM courseentity where userId=:userId ")
+    suspend fun fetchCourses(userId: String): List<CourseEntity>
 
-    @Upsert
-    fun saveCourse(courseEntity: CourseEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun saveCourse(courseEntity: CourseEntity)
 
     @Query("SELECT * FROM COURSEENTITY WHERE id=:id and userId=:userId")
     suspend fun getCourseById(id: Int, userId: String): CourseEntity?
 
-    @Update
-    fun setFavoriteById(courseEntity: CourseEntity)
+    @Query("UPDATE courseentity " +
+            "SET isFavorite = CASE WHEN isFavorite = 1 THEN 0 ELSE 1 END WHERE id = :courseId and" +
+            " userId = :userId")
+    suspend fun updateFavoriteStatus(courseId: Int, userId: String)
 
     @Query("SELECT * FROM COURSEENTITY WHERE userId=:userId")
     suspend fun getFavoriteCourses(userId: String): List<CourseEntity>

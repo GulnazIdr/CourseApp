@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 @Entity
 data class CourseEntity(
-    @PrimaryKey val id: Int,
+    val id: Int,
     val title: String,
     val descr: String,
     val price: Int,
@@ -15,5 +15,6 @@ data class CourseEntity(
     val publishDate: LocalDate,
     val isFavorite: Boolean,
     val img: Int,
-    val userId: String
+    val userId: String,
+    @PrimaryKey(autoGenerate = true) val courseId: Int = 0,
 )

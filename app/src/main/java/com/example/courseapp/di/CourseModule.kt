@@ -12,8 +12,12 @@ import dagger.Provides
 @Module
 class CourseModule {
     @Provides
-    fun provideCourseRepo(courseAPI: CourseAPI): CourseRepository{
-        return RemoteCourseRepositoryImpl(courseAPI)
+    fun provideCourseRepo(
+        courseAPI: CourseAPI,
+        courseDao: CourseDao,
+        dataStoreRepository: DataStoreRepository
+        ): CourseRepository{
+        return RemoteCourseRepositoryImpl(courseAPI, courseDao, dataStoreRepository)
     }
 
     @Provides

@@ -2,12 +2,12 @@ package com.example.courseapp.presentation.main
 
 import android.os.Build
 import android.util.Log
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseapp.data.local.LocalCourseRepository
 import com.example.courseapp.domain.CourseRepository
-import com.example.courseapp.domain.DataStoreRepository
 import com.example.courseapp.domain.FetchedResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,14 +36,14 @@ class CourseViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             val result = courseRepository.fetchCourses()
-
             when(result){
                 is FetchedResult.Success<List<CourseMainInfo>> -> {
                     _courseList.value = result.data!!.toMutableList()
 
                     _courseList.value.forEach {
-                        if(localCourseRepository.isInLocalDb(it.id))
+                        if(!localCourseRepository.isInLocalDb(it.id)) {
                             localCourseRepository.saveCourses(it)
+                        }
                     }
                 }
                 is FetchedResult.Error<List<CourseMainInfo>> -> {
@@ -59,8 +59,15 @@ class CourseViewModel @Inject constructor(
 
         }
 
-    fun setFavorite(id: Int, isFavorite: Boolean) = viewModelScope.launch {
-        localCourseRepository.setFavoriteById(id, isFavorite)
+    fun onFavorite(courseId: Int) {
+        viewModelScope.launch {
+            localCourseRepository.setFavoriteById(courseId)
+            _courseList.value = localCourseRepository.fetchCourses()
+        }
+    }
+
+    fun sortByPublishDate(){
+        _courseList.value = _courseList.value.sortedByDescending { it.publishDate }
     }
 
 }

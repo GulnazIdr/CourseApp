@@ -17,11 +17,13 @@ import com.example.courseapp.data.local.dao.UserDao
 import com.example.courseapp.domain.CourseRepository
 import com.example.courseapp.domain.DataStoreRepository
 import com.example.courseapp.presentation.login.AuthViewModelFactory
+import com.example.courseapp.presentation.main.CourseCardStateAdapter
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 class DataModule(val context: Context) {
@@ -33,9 +35,11 @@ class DataModule(val context: Context) {
 
     @Provides
     fun provideCourseViewModelFactory(
-        courseRepository: CourseRepository, localCourseRepository: LocalCourseRepository
+        courseRepository: CourseRepository,
+        localCourseRepository: LocalCourseRepository
         ): CourseMainVIewModelFactory{
-        return CourseMainVIewModelFactory(courseRepository, localCourseRepository)
+        return CourseMainVIewModelFactory(
+            courseRepository, localCourseRepository)
     }
 
     @Provides
@@ -62,6 +66,7 @@ class DataModule(val context: Context) {
     }
 
     @Provides
+    @Singleton
     fun provideDataStore(): DataStore<Preferences>{
         return PreferenceDataStoreFactory.create(
             produceFile = {context.preferencesDataStoreFile("data_store")}
