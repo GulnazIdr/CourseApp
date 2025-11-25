@@ -10,7 +10,7 @@
     android:padding="16dp"
     android:background="@color/black"
     android:fitsSystemWindows="true"
-    tools:context=".LoginActivity">
+    tools:context=".presentation.login.LoginActivity">
 
     <TextView
         android:id="@+id/titleLogin"

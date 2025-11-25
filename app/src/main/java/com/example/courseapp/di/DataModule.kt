@@ -7,17 +7,17 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.example.courseapp.data.remote.retrofit.CourseAPI
-import com.example.courseapp.data.remote.RemoteCourseRepositoryImpl
 import com.example.courseapp.data.local.CourseDatabase
 import com.example.courseapp.data.local.DataStoreRepoImpl
-import com.example.courseapp.data.local.LocalCourseRepository
-import com.example.courseapp.data.local.LocalUserRepository
+import com.example.courseapp.data.local.LocalCourseRepositoryImpl
+import com.example.courseapp.data.local.LocalUserRepositoryImpl
 import com.example.courseapp.data.local.dao.CourseDao
 import com.example.courseapp.data.local.dao.UserDao
 import com.example.courseapp.domain.CourseRepository
 import com.example.courseapp.domain.DataStoreRepository
+import com.example.courseapp.domain.usecases.FetchCoursesUseCase
+import com.example.courseapp.domain.usecases.ToggleFavoriteUseCase
 import com.example.courseapp.presentation.login.AuthViewModelFactory
-import com.example.courseapp.presentation.main.CourseCardStateAdapter
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -35,19 +35,19 @@ class DataModule(val context: Context) {
 
     @Provides
     fun provideCourseViewModelFactory(
-        courseRepository: CourseRepository,
-        localCourseRepository: LocalCourseRepository
+        toggleFavoriteUseCase: ToggleFavoriteUseCase,
+        fetchCoursesUseCase: FetchCoursesUseCase,
         ): CourseMainVIewModelFactory{
         return CourseMainVIewModelFactory(
-            courseRepository, localCourseRepository)
+            toggleFavoriteUseCase, fetchCoursesUseCase)
     }
 
     @Provides
     fun provideAuthViewModelFactory(
-       localUserRepository: LocalUserRepository,
+       LocalUserRepositoryImpl: LocalUserRepositoryImpl,
        dataStoreRepository: DataStoreRepository
     ): AuthViewModelFactory{
-        return AuthViewModelFactory(localUserRepository, dataStoreRepository)
+        return AuthViewModelFactory(LocalUserRepositoryImpl, dataStoreRepository)
     }
 
     @Provides

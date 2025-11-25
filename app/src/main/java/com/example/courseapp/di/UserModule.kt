@@ -1,6 +1,6 @@
 package com.example.courseapp.di
 
-import com.example.courseapp.data.local.LocalUserRepository
+import com.example.courseapp.data.local.LocalUserRepositoryImpl
 import com.example.courseapp.data.local.dao.UserDao
 import com.example.courseapp.domain.DataStoreRepository
 import com.example.courseapp.domain.UserRepository
@@ -13,6 +13,6 @@ class UserModule {
     fun provideUserRepo(
         userDao: UserDao
     ): UserRepository{
-        return LocalUserRepository(userDao)
+        return LocalUserRepositoryImpl(userDao)
     }
 }

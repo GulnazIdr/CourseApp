@@ -1,14 +1,15 @@
 package com.example.courseapp.presentation.main
 
 import android.os.Build
-import android.util.Log
-import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.courseapp.data.local.LocalCourseRepository
-import com.example.courseapp.domain.CourseRepository
 import com.example.courseapp.domain.FetchedResult
+import com.example.courseapp.domain.models.Course
+import com.example.courseapp.domain.usecases.FetchCoursesUseCase
+import com.example.courseapp.domain.usecases.ToggleFavoriteUseCase
+import com.example.courseapp.presentation.login.models.CourseUi
+import com.example.courseapp.presentation.mappers.toCourseUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,12 +18,11 @@ import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
 class CourseViewModel @Inject constructor(
-    internal val courseRepository: CourseRepository,
-    internal val localCourseRepository: LocalCourseRepository
+    internal val toggleFavoriteUseCase: ToggleFavoriteUseCase,
+    internal val fetchCoursesUseCase: FetchCoursesUseCase,
 ): ViewModel() {
-
-    private val _courseList = MutableStateFlow<List<CourseMainInfo>>(emptyList())
-    val courseList: StateFlow<List<CourseMainInfo>> = _courseList.asStateFlow()
+    private val _courseList = MutableStateFlow<List<CourseUi>>(emptyList())
+    val courseList: StateFlow<List<CourseUi>> = _courseList.asStateFlow()
 
     private val _isLoading = MutableStateFlow<Boolean>(true)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -35,34 +35,19 @@ class CourseViewModel @Inject constructor(
     fun fetchCourseList() =
         viewModelScope.launch {
             _isLoading.value = true
-            val result = courseRepository.fetchCourses()
-            when(result){
-                is FetchedResult.Success<List<CourseMainInfo>> -> {
-                    _courseList.value = result.data!!.toMutableList()
-
-                    _courseList.value.forEach {
-                        if(!localCourseRepository.isInLocalDb(it.id)) {
-                            localCourseRepository.saveCourses(it)
-                        }
-                    }
-                }
-                is FetchedResult.Error<List<CourseMainInfo>> -> {
-                    try {
-                        _courseList.value = localCourseRepository.fetchCourses()
-                    }catch (e: Exception){
-                        Log.e("FETCHING LOCAL DB ERROR", "${e.message} ${e::class.simpleName}")
-                    }
-                }
-            }
-
+            _courseList.value = fetchCoursesUseCase().map { it.toCourseUi() }
             _isLoading.value = false
 
         }
 
     fun onFavorite(courseId: Int) {
         viewModelScope.launch {
-            localCourseRepository.setFavoriteById(courseId)
-            _courseList.value = localCourseRepository.fetchCourses()
+            val res = toggleFavoriteUseCase(courseId)
+            when(res){
+                is FetchedResult.Success<List<Course>> ->
+                    _courseList.value = res.data!!.map { it.toCourseUi() }
+                is FetchedResult.Error<List<Course>> -> {}
+            }
         }
     }
 

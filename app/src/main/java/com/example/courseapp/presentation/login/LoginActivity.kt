@@ -1,8 +1,7 @@
-package com.example.courseapp
+package com.example.courseapp.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +14,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.ActivityLoginBinding
 import com.example.courseapp.presentation.MainActivity
-import com.example.courseapp.presentation.login.AuthViewModelFactory
-import com.example.courseapp.presentation.login.AuthorizationViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,6 +58,14 @@ class LoginActivity : AppCompatActivity() {
                        if(it){
                            Toast.makeText(applicationContext, "Saving...", Toast.LENGTH_SHORT).show()
                        }
+                    }
+                }
+
+                launch {
+                    authorizationViewModel.isUserSaved.collect {
+                        if(!it)
+                            Toast.makeText(applicationContext, "Saving failed", Toast.LENGTH_SHORT)
+                                .show()
                     }
                 }
             }

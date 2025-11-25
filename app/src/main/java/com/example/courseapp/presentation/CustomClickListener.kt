@@ -1,4 +1,4 @@
-package com.example.courseapp.presentation.main
+package com.example.courseapp.presentation
 
 interface CustomClickListener {
     fun onFavorite(id :Int)

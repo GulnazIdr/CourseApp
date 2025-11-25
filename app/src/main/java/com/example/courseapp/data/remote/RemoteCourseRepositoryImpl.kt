@@ -9,7 +9,7 @@ import com.example.courseapp.data.remote.retrofit.CourseAPI
 import com.example.courseapp.domain.CourseRepository
 import com.example.courseapp.domain.DataStoreRepository
 import com.example.courseapp.domain.FetchedResult
-import com.example.courseapp.presentation.main.CourseMainInfo
+import com.example.courseapp.domain.models.Course
 import javax.inject.Inject
 
 class RemoteCourseRepositoryImpl @Inject constructor(
@@ -19,7 +19,7 @@ class RemoteCourseRepositoryImpl @Inject constructor(
 ): CourseRepository, CourseMapper() {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun fetchCourses(): FetchedResult<List<CourseMainInfo>> {
+    override suspend fun fetchCourses(): FetchedResult<List<Course>> {
         try {
             val fetched = courseAPI.fetchCourses()
             val favorites = courseDao
@@ -28,10 +28,10 @@ class RemoteCourseRepositoryImpl @Inject constructor(
 
             return FetchedResult.Success(
                 if (favorites.isEmpty()) {
-                    fetched.courses.map { it.toCourseUi(it.hasLike == true) }
+                    fetched.courses.map { it.toCourse(it.hasLike == true) }
                 }else {
                     fetched.courses.map {
-                        it.toCourseUi(
+                        it.toCourse(
                             favorites[it.id]!!.isFavorite
                         )
                     }

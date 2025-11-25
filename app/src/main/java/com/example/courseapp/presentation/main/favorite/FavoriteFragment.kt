@@ -18,7 +18,7 @@ import com.example.courseapp.R
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.FragmentFavoriteBinding
 import com.example.courseapp.presentation.main.CourseCardStateAdapter
-import com.example.courseapp.presentation.main.CourseMainInfo
+import com.example.courseapp.presentation.main.models.CourseMainInfo
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
 import kotlinx.coroutines.launch

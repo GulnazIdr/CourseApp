@@ -1,4 +1,4 @@
-package com.example.courseapp.data.remote.retrofit
+package com.example.courseapp.data.remote.retrofit.models
 
 data class CourseDto(
     val id: Int? = null,

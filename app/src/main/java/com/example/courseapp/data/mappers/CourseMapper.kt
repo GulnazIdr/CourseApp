@@ -1,69 +1,50 @@
 package com.example.courseapp.data.mappers
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.courseapp.R
 import com.example.courseapp.data.local.entity.CourseEntity
-import com.example.courseapp.data.remote.retrofit.CourseDto
-import com.example.courseapp.presentation.main.CourseMainInfo
-import java.time.LocalDate
+import com.example.courseapp.data.remote.retrofit.models.CourseDto
+import com.example.courseapp.domain.models.Course
 
-abstract class CourseMapper{
-
+abstract class CourseMapper {
     @RequiresApi(Build.VERSION_CODES.O)
-    protected fun CourseDto.toCourseUi(isFavorite: Boolean): CourseMainInfo{
-        return CourseMainInfo(
-            id = id ?: 0,
-            title = title ?: "",
-            descr = text ?: "",
-            price = price?.replace(" ", "")?.toIntOrNull() ?: 0,
-            rate = rate?.toFloatOrNull() ?: 0f,
-            startDate = startDate?.toLocalDate() ?: LocalDate.now(),
-            publishDate = publishDate?.toLocalDate() ?: LocalDate.now(),
-            isFavorite = isFavorite,
-            img = R.drawable.java_image
+    protected fun CourseDto.toCourse(isFavorite: Boolean): Course{
+        return Course(
+            id = id,
+            title = title,
+            text = text,
+            price = price?.replace(" ", "")?.toIntOrNull(),
+            rate = rate?.toFloatOrNull(),
+            startDate = startDate,
+            hasLike = isFavorite,
+            publishDate = publishDate
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    protected fun CourseMainInfo.toCourseLocal(userId: String): CourseEntity{
+    protected fun CourseEntity.toCourse(): Course{
+        return Course(
+            id = id,
+            title = title,
+            text = descr,
+            price = price,
+            rate = rate,
+            startDate = startDate,
+            hasLike = isFavorite,
+            publishDate = publishDate
+        )
+    }
+
+    protected fun Course.toCourseEntity(): CourseEntity{
         return CourseEntity(
-            id = id,
-            title = title ,
-            descr = descr,
-            price = price,
-            rate = rate,
-            startDate = startDate,
-            publishDate = publishDate,
-            isFavorite = isFavorite,
-            img = img,
-            userId = userId
+            id = id!!,
+            title =title!!,
+            descr = text!!,
+            price = price!!,
+            rate = rate!!,
+            startDate = startDate!!,
+            publishDate = publishDate!!,
+            isFavorite = hasLike!!,
+            userId = "",
         )
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    protected fun CourseEntity.toCourseUI(): CourseMainInfo{
-        return CourseMainInfo(
-            id = id,
-            title = title ,
-            descr = descr,
-            price = price,
-            rate = rate,
-            startDate = startDate,
-            publishDate = publishDate,
-            isFavorite = isFavorite,
-            img = img
-        )
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun String.toLocalDate(): LocalDate{
-        try {
-            return LocalDate.parse(this)
-        }catch (e: Exception){
-            Log.e("Convert String to LocalDate failed: ", "${e.message} ${e::class.simpleName}")
-            return LocalDate.now()
-        }
     }
 }

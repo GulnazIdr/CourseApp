@@ -1,8 +1,8 @@
-package com.example.courseapp.presentation.main
+package com.example.courseapp.presentation.login.models
 
 import java.time.LocalDate
 
-data class CourseMainInfo(
+data class CourseUi(
     val id: Int,
     val title: String,
     val descr: String,

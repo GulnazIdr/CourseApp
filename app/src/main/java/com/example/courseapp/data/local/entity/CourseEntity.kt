@@ -11,10 +11,9 @@ data class CourseEntity(
     val descr: String,
     val price: Int,
     val rate: Float,
-    val startDate: LocalDate,
-    val publishDate: LocalDate,
+    val startDate: String,
+    val publishDate: String,
     val isFavorite: Boolean,
-    val img: Int,
     val userId: String,
     @PrimaryKey(autoGenerate = true) val courseId: Int = 0,
 )

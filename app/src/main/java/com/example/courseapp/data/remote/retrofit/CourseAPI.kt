@@ -1,5 +1,6 @@
 package com.example.courseapp.data.remote.retrofit
 
+import com.example.courseapp.data.remote.retrofit.models.CourseListDto
 import retrofit2.http.GET
 import retrofit2.http.Url
 

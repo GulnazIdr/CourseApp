@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseapp.R
 import com.example.courseapp.databinding.CourseCardItemBinding
+import com.example.courseapp.presentation.CustomClickListener
+import com.example.courseapp.presentation.main.models.CourseMainInfo
 
 class CourseCardStateAdapter(
     private var courseList: MutableList<CourseMainInfo>,
@@ -23,7 +25,7 @@ class CourseCardStateAdapter(
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        p0.bind(courseList[p1], object : CustomClickListener{
+        p0.bind(courseList[p1], object : CustomClickListener {
             override fun onFavorite(id: Int) {
                 onItem(id)
             }
