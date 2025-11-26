@@ -16,7 +16,9 @@ import com.example.courseapp.data.local.dao.UserDao
 import com.example.courseapp.domain.CourseRepository
 import com.example.courseapp.domain.DataStoreRepository
 import com.example.courseapp.domain.usecases.FetchCoursesUseCase
+import com.example.courseapp.domain.usecases.SaveUserUseCase
 import com.example.courseapp.domain.usecases.ToggleFavoriteUseCase
+import com.example.courseapp.domain.usecases.VerifyEmailUseCase
 import com.example.courseapp.presentation.login.AuthViewModelFactory
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import dagger.Module
@@ -44,10 +46,10 @@ class DataModule(val context: Context) {
 
     @Provides
     fun provideAuthViewModelFactory(
-       LocalUserRepositoryImpl: LocalUserRepositoryImpl,
-       dataStoreRepository: DataStoreRepository
+        verifyEmailUseCase: VerifyEmailUseCase,
+        saveUserUseCase: SaveUserUseCase
     ): AuthViewModelFactory{
-        return AuthViewModelFactory(LocalUserRepositoryImpl, dataStoreRepository)
+        return AuthViewModelFactory(verifyEmailUseCase, saveUserUseCase)
     }
 
     @Provides

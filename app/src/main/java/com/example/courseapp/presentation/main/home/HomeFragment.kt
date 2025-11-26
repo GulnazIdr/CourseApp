@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.courseapp.R
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.FragmentHomeBinding
+import com.example.courseapp.presentation.login.models.CourseUi
 import com.example.courseapp.presentation.main.CourseCardStateAdapter
-import com.example.courseapp.presentation.main.models.CourseMainInfo
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
 import kotlinx.coroutines.launch
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         val recyclerView = binding.recycler.courseCardRecycler
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        var adapter = CourseCardStateAdapter( mutableListOf<CourseMainInfo>(), context){
+        var adapter = CourseCardStateAdapter( mutableListOf<CourseUi>(), context){
             courseViewModel.onFavorite(it)
         }
         recyclerView.adapter = adapter

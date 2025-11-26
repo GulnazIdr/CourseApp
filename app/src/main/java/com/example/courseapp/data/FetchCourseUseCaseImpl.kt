@@ -3,9 +3,7 @@ package com.example.courseapp.data
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.courseapp.data.local.LocalCourseRepositoryImpl
 import com.example.courseapp.data.mappers.CourseMapper
-import com.example.courseapp.data.remote.RemoteCourseRepositoryImpl
 import com.example.courseapp.domain.FetchedResult
 import com.example.courseapp.domain.LocalCourseRepository
 import com.example.courseapp.domain.models.Course
@@ -16,6 +14,7 @@ class FetchCourseUseCaseImpl @Inject constructor(
     private val fetchCourseFactory: FetchCourseFactory,
     private val localCourseRepository: LocalCourseRepository
 ): FetchCoursesUseCase, CourseMapper() {
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun invoke(): List<Course> {

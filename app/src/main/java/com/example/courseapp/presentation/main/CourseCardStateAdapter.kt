@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.courseapp.R
 import com.example.courseapp.databinding.CourseCardItemBinding
 import com.example.courseapp.presentation.CustomClickListener
-import com.example.courseapp.presentation.main.models.CourseMainInfo
+import com.example.courseapp.presentation.login.models.CourseUi
 
 class CourseCardStateAdapter(
-    private var courseList: MutableList<CourseMainInfo>,
+    private var courseList: MutableList<CourseUi>,
     private val context: Context?,
     private val onItem: (Int) -> Unit
 ): RecyclerView.Adapter<CourseCardStateAdapter.ViewHolder>() {
@@ -36,7 +36,7 @@ class CourseCardStateAdapter(
         return courseList.size
     }
 
-    fun updateCourseList(list: List<CourseMainInfo>){
+    fun updateCourseList(list: List<CourseUi>){
         var initialSize = courseList.size
         courseList.clear()
         courseList.addAll(list)
@@ -50,7 +50,7 @@ class CourseCardStateAdapter(
         private val binding: CourseCardItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(card: CourseMainInfo, customClickListener: CustomClickListener){
+        fun bind(card: CourseUi, customClickListener: CustomClickListener){
             try {
                 binding.cardCover.setImageResource(card.img)
             }catch (e: Exception){

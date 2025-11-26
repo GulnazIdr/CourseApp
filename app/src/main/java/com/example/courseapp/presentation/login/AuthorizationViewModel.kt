@@ -1,5 +1,6 @@
 package com.example.courseapp.presentation.login
 
+import android.text.InputFilter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseapp.domain.usecases.SAVE_USER
@@ -37,7 +38,7 @@ class AuthorizationViewModel @Inject constructor(
          isEmailCorrect && isPasswordCorrect
      }.stateIn(viewModelScope, SharingStarted.Companion.Eagerly, false)
 
-    fun verifyEmail(email: String) = {
+    fun verifyEmail(email: String) {
         _isEmailCorrect.value = verifyEmailUseCase(email)
     }
 
@@ -53,12 +54,18 @@ class AuthorizationViewModel @Inject constructor(
                 SAVE_USER.SUCCESS -> _isUserSaved.value = true
                 SAVE_USER.ERROR ->{
                     _isUserSaved.value = false
-                    // TODO: make sure user isnt redirected
-                    return@async
                 }
             }
         }
             _isLoading.value = false
+    }
+
+    val cyrillicFilter = InputFilter { email, _, _, _, _, _ ->
+        if (Regex("[\\u0400-\\u04FF]").containsMatchIn(email.toString())) {
+            ""
+        } else {
+            null
+        }
     }
 
 }

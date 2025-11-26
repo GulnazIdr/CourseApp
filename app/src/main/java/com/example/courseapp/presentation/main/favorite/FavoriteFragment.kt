@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.courseapp.R
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.FragmentFavoriteBinding
+import com.example.courseapp.presentation.login.models.CourseUi
 import com.example.courseapp.presentation.main.CourseCardStateAdapter
-import com.example.courseapp.presentation.main.models.CourseMainInfo
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
 import kotlinx.coroutines.launch
@@ -43,7 +43,7 @@ class FavoriteFragment : Fragment() {
 
         val recycler = binding.recycler.courseCardRecycler
         recycler.layoutManager = LinearLayoutManager(context)
-        val adapter = CourseCardStateAdapter( mutableListOf<CourseMainInfo>(), context) {
+        val adapter = CourseCardStateAdapter( mutableListOf<CourseUi>(), context) {
             courseViewModel.onFavorite(it)
         }
         recycler.adapter = adapter

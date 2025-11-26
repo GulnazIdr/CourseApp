@@ -2,6 +2,7 @@ package com.example.courseapp.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var authorizationViewModel: AuthorizationViewModel
     private val VK_URL = "https://vk.com/"
     private val OK_URL  = "https://ok.ru/"
+    private var isUserSaved = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
                 launch {
                     authorizationViewModel.isUserSaved.collect {
+                        isUserSaved = it
                         if(!it)
                             Toast.makeText(applicationContext, "Saving failed", Toast.LENGTH_SHORT)
                                 .show()
@@ -70,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.emailField.filters = arrayOf(authorizationViewModel.cyrillicFilter)
         binding.emailField.doOnTextChanged { email, _, _, _ ->
             authorizationViewModel.verifyEmail(email.toString())
         }
@@ -95,7 +99,8 @@ class LoginActivity : AppCompatActivity() {
                 val password = binding.passwordField.text.toString()
                 authorizationViewModel.saveUser(email, password)
 
-                startActivity(intent)
+                if (isUserSaved)
+                    startActivity(intent)
                 finish()
             }
         }

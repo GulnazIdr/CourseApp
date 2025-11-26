@@ -1,4 +1,4 @@
-package com.example.courseapp.data.local
+package com.example.courseapp.domain
 
 import com.example.courseapp.domain.usecases.VerifyEmailUseCase
 import javax.inject.Inject
