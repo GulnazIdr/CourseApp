@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LabelMedium" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">600</item>
+        <item name="lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="fontFamily">@font/roboto_semibold</item>
+    </style>
+</resources>

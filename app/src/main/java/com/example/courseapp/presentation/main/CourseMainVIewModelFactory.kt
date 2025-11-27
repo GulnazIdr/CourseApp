@@ -4,10 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.courseapp.data.local.LocalCourseRepositoryImpl
-import com.example.courseapp.domain.CourseRepository
-import com.example.courseapp.domain.usecases.FetchCoursesUseCase
-import com.example.courseapp.domain.usecases.ToggleFavoriteUseCase
+import com.example.domain.domain.FetchCoursesUseCase
+import com.example.favorite_feature.domain.ToggleFavoriteUseCase
 import javax.inject.Inject
 
 class CourseMainVIewModelFactory @Inject constructor(

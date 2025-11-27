@@ -14,5 +14,4 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(favoriteFragment: FavoriteFragment)
     fun inject(loginActivity: LoginActivity)
-
 }

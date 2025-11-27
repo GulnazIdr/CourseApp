@@ -18,7 +18,6 @@ import com.example.courseapp.R
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.FragmentHomeBinding
 import com.example.courseapp.presentation.login.models.CourseUi
-import com.example.courseapp.presentation.main.CourseCardStateAdapter
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
 import kotlinx.coroutines.launch

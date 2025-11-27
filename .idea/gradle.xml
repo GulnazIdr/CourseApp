@@ -11,6 +11,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common-feature" />
+            <option value="$PROJECT_DIR$/common-main-feature" />
+            <option value="$PROJECT_DIR$/favorite_feature" />
+            <option value="$PROJECT_DIR$/user_feature" />
           </set>
         </option>
       </GradleProjectSettings>

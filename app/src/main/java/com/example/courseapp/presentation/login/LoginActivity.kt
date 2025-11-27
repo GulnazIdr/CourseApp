@@ -2,7 +2,6 @@ package com.example.courseapp.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.ActivityLoginBinding
-import com.example.courseapp.presentation.MainActivity
+import com.example.courseapp.presentation.main.home.MainActivity
+import com.example.user_feature.presentation.AuthViewModelFactory
+import com.example.user_feature.presentation.AuthorizationViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

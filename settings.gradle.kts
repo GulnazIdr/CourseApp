@@ -21,3 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "CourseApp"
 include(":app")
+include(":favorite_feature")
+include(":common-main-feature")
+include(":common-feature")
+include(":user_feature")

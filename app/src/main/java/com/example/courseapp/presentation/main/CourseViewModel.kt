@@ -4,12 +4,12 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.courseapp.domain.FetchedResult
-import com.example.courseapp.domain.models.Course
-import com.example.courseapp.domain.usecases.FetchCoursesUseCase
-import com.example.courseapp.domain.usecases.ToggleFavoriteUseCase
-import com.example.courseapp.presentation.login.models.CourseUi
+import com.example.common_feature.domain.FetchedResult
+import com.example.common_feature.domain.models.Course
 import com.example.courseapp.presentation.mappers.toCourseUi
+import com.example.domain.domain.FetchCoursesUseCase
+import com.example.domain.presentation.models.CourseUi
+import com.example.favorite_feature.domain.ToggleFavoriteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
