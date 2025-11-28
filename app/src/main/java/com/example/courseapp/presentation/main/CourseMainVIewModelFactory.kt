@@ -4,8 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.domain.domain.FetchCoursesUseCase
-import com.example.domain.domain.SearchCourseUseCase
+import com.example.domain.domain.usecases.FetchCoursesUseCase
+import com.example.domain.domain.usecases.SearchCourseUseCase
 import com.example.favorite_feature.domain.ToggleFavoriteUseCase
 import javax.inject.Inject
 

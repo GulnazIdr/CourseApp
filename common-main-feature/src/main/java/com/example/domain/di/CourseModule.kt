@@ -4,13 +4,13 @@ import com.example.common_feature.data.dao.CourseDao
 import com.example.common_feature.domain.DataStoreRepository
 import com.example.domain.data.FetchCourseFactory
 import com.example.domain.data.FetchCourseUseCaseImpl
-import com.example.domain.data.SearchCourseUseCaseImpl
+import com.example.domain.domain.SearchCourseUseCaseImpl
 import com.example.domain.data.local.LocalCourseRepositoryImpl
 import com.example.domain.data.remote.RemoteCourseRepositoryImpl
 import com.example.domain.data.remote.retrofit.CourseAPI
-import com.example.domain.domain.FetchCoursesUseCase
+import com.example.domain.domain.usecases.FetchCoursesUseCase
 import com.example.domain.domain.LocalCourseRepository
-import com.example.domain.domain.SearchCourseUseCase
+import com.example.domain.domain.usecases.SearchCourseUseCase
 import dagger.Module
 import dagger.Provides
 

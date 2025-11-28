@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common_feature.domain.FetchedResult
 import com.example.common_feature.domain.models.Course
-import com.example.domain.domain.FetchCoursesUseCase
-import com.example.domain.domain.SearchCourseUseCase
+import com.example.domain.domain.usecases.FetchCoursesUseCase
+import com.example.domain.domain.usecases.SearchCourseUseCase
 import com.example.domain.presentation.mappers.toCourse
 import com.example.domain.presentation.mappers.toCourseUi
 import com.example.domain.presentation.models.CourseUi
@@ -16,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

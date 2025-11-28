@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common_feature.domain.FetchedResult
 import com.example.common_feature.domain.models.Course
-import com.example.domain.domain.FetchCoursesUseCase
+import com.example.domain.domain.usecases.FetchCoursesUseCase
 import com.example.domain.presentation.models.CourseUi
 import com.example.domain.presentation.mappers.toCourseUi
 import com.example.favorite_feature.domain.ToggleFavoriteUseCase

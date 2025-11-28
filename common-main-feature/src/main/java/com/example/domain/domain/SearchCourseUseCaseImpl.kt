@@ -1,7 +1,7 @@
-package com.example.domain.data
+package com.example.domain.domain
 
 import com.example.common_feature.domain.models.Course
-import com.example.domain.domain.SearchCourseUseCase
+import com.example.domain.domain.usecases.SearchCourseUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 

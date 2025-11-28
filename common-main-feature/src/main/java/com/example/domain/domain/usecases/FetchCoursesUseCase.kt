@@ -1,4 +1,4 @@
-package com.example.domain.domain
+package com.example.domain.domain.usecases
 
 import com.example.common_feature.domain.models.Course
 
