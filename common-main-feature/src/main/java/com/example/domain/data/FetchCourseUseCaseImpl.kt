@@ -3,18 +3,19 @@ package com.example.domain.data
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.courseapp.data.mappers.CourseMapper
-import com.example.courseapp.domain.FetchedResult
-import com.example.courseapp.domain.LocalCourseRepository
-import com.example.courseapp.domain.models.Course
-import com.example.courseapp.domain.usecases.FetchCoursesUseCase
+import com.example.common_feature.domain.DataStoreRepository
+import com.example.common_feature.domain.FetchedResult
+import com.example.common_feature.domain.models.Course
+import com.example.domain.data.mappers.CourseMapper
+import com.example.domain.domain.FetchCoursesUseCase
+import com.example.domain.domain.LocalCourseRepository
 import javax.inject.Inject
 
 class FetchCourseUseCaseImpl @Inject constructor(
     private val fetchCourseFactory: FetchCourseFactory,
-    private val localCourseRepository: LocalCourseRepository
+    private val localCourseRepository: LocalCourseRepository,
+    private val dataStoreRepository: DataStoreRepository
 ): FetchCoursesUseCase, CourseMapper() {
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun invoke(): List<Course> {
@@ -22,8 +23,8 @@ class FetchCourseUseCaseImpl @Inject constructor(
         when(result){
             is FetchedResult.Success<List<Course>> -> {
                 val fetched =  result.data!!
-
-                fetched.map { it.toCourseEntity() }.forEach {
+                fetched.map { it.toCourseEntity(dataStoreRepository.getCurrentUserId()) }.forEach {
+                    Log.d("CALLED2", "${localCourseRepository.isInLocalDb(it.id)}, ${it.id}")
                     if(!localCourseRepository.isInLocalDb(it.id)) {
                         localCourseRepository.saveCourses(it.toCourse())
                     }

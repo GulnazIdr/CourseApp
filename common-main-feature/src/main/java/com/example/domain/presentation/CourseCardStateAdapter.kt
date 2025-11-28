@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common_presentation.R
-
 import com.example.domain.presentation.models.CourseUi
 import com.example.domain.databinding.CourseCardItemBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CourseCardStateAdapter(
     private var courseList: MutableList<CourseUi>,
@@ -64,20 +65,34 @@ class CourseCardStateAdapter(
             binding.cardPrice.text =
                 context?.getString(R.string.price, card.price) ?: card.price.toString()
             binding.rate.text = card.rate.toString()
-            binding.courseDate.text = card.publishDate.toString()
+            binding.courseDate.text = formatDate(card.publishDate.toString())
 
             binding.favoriteIconGroup.setOnClickListener{
+
                 customClickListener.onFavorite(card.id)
                 setFavoriteIcon(!card.isFavorite)
             }
         }
 
         private fun setFavoriteIcon(isFavorite: Boolean = false){
+            Log.d("Dfd", "${isFavorite}")
             var img = R.drawable.favorite_icon
             if(isFavorite)
                 img = R.drawable.favorite_filled_icon
             else img = R.drawable.favorite_icon
             binding.favoriteIcon.setImageResource(img)
         }
+
+        private fun formatDate(dateString: String): String {
+            return try {
+                val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.forLanguageTag("ru"))
+                val date = inputFormat.parse(dateString)
+                outputFormat.format(date ?: return dateString)
+            } catch (e: Exception) {
+                dateString
+            }
+        }
+
     }
 }

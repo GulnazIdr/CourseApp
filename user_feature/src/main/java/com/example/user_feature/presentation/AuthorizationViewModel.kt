@@ -3,7 +3,6 @@ package com.example.user_feature.presentation
 import android.text.InputFilter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.user_feature.domain.usecases.SAVE_USER
 import com.example.user_feature.domain.usecases.SaveUserUseCase
 import com.example.user_feature.domain.usecases.VerifyEmailUseCase
 import kotlinx.coroutines.async
@@ -25,9 +24,6 @@ class AuthorizationViewModel @Inject constructor(
     private val _isPasswordCorrect = MutableStateFlow<Boolean>(false)
     val isPasswordCorrect: StateFlow<Boolean> = _isPasswordCorrect.asStateFlow()
 
-    private val _isLoading = MutableStateFlow<Boolean>(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
-
     private val _isUserSaved = MutableStateFlow<Boolean>(false)
     val isUserSaved: StateFlow<Boolean> = _isUserSaved.asStateFlow()
 
@@ -48,16 +44,9 @@ class AuthorizationViewModel @Inject constructor(
 
     fun saveUser(email: String, password: String) =  viewModelScope.async {
         if (isFormValid.value) {
-            _isLoading.value = true
             val res = saveUserUseCase(email, password)
-            when(res){
-                SAVE_USER.SUCCESS -> _isUserSaved.value = true
-                SAVE_USER.ERROR ->{
-                    _isUserSaved.value = false
-                }
-            }
+            _isUserSaved.value = res
         }
-            _isLoading.value = false
     }
 
     val cyrillicFilter = InputFilter { email, _, _, _, _, _ ->

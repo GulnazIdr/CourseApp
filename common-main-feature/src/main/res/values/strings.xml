@@ -1,29 +1,3 @@
 <resources>
-    <string name="app_name">CourseApp</string>
-    <string name="login">Вход</string>
-    <string name="email_title">Email</string>
-    <string name="email_placeholder">example@gmail.com</string>
-    <string name="password_title">Пароль</string>
-    <string name="password_placeholder">Введите пароль</string>
-    <string name="registration">Регистрация</string>
-    <string name="no_account">Нету аккаунта?</string>
-    <string name="forgot_password">Забыл пароль</string>
-    <string name="search_placeholder">Search courses...</string>
-
-    <string name="date_filter">По дате добавления</string>
-    <string name="details">Подробнее -></string>
-
-    <string name="home">Главная</string>
-    <string name="favorite">Избранное</string>
-    <string name="account">Аккаунт</string>
-
-    <string name="recycler_content_descr">course recycler</string>
-    <string name="search_icon">search icon</string>
-    <string name="filter_icon">filter_icon</string>
-
-    <string name="email_error">Некорректный email</string>
-    <string name="password_error">Некорректный пароль</string>
-
-    <string name="price">%1$d ₽</string>
-    <string name="loading_text">Loading...</string>
+    <string name="app_name">common-main-feature</string>
 </resources>

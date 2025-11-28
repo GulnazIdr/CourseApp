@@ -1,5 +1,6 @@
 package com.example.common_feature.data
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -15,6 +16,7 @@ class DataStoreRepoImpl @Inject constructor(
     val CURRENT_USER_ID = stringPreferencesKey("current_user_id")
 
     override suspend fun saveCurrentUserId(id: String) {
+        Log.d("useruser", id)
         dataStorePref.edit { pref ->
             pref.clear()
             pref[CURRENT_USER_ID] = id

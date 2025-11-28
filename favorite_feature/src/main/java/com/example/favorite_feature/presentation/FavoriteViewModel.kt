@@ -8,7 +8,7 @@ import com.example.common_feature.domain.FetchedResult
 import com.example.common_feature.domain.models.Course
 import com.example.domain.domain.FetchCoursesUseCase
 import com.example.domain.presentation.models.CourseUi
-import com.example.domain.presentation.toCourseUi
+import com.example.domain.presentation.mappers.toCourseUi
 import com.example.favorite_feature.domain.ToggleFavoriteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -14,8 +14,9 @@ import com.example.common_feature.data.entity.UserEntity
         UserEntity::class,
         CourseEntity::class
     ],
-    version = 1,
-    exportSchema = false
+    version = 2,
+    exportSchema = true,
+    autoMigrations = []
 )
 
 abstract class CourseDatabase: RoomDatabase() {

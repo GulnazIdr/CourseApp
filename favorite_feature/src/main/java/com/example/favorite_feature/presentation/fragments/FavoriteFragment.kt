@@ -1,4 +1,4 @@
-package com.example.courseapp.presentation.main.favorite
+package com.example.favorite_feature.presentation.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -14,20 +14,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.courseapp.R
-import com.example.courseapp.app.CourseApplication
-import com.example.courseapp.databinding.FragmentFavoriteBinding
-import com.example.courseapp.presentation.login.models.CourseUi
-import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
-import com.example.courseapp.presentation.main.CourseViewModel
+import com.example.domain.R
+import com.example.domain.presentation.CourseCardStateAdapter
+import com.example.domain.presentation.models.CourseUi
+import com.example.favorite_feature.databinding.FragmentFavoriteBinding
+import com.example.favorite_feature.di.CommonFeatureComponent
+import com.example.favorite_feature.presentation.FavoriteVIewModelFactory
+import com.example.favorite_feature.presentation.FavoriteViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
     @Inject
-    lateinit var vmFactory: CourseMainVIewModelFactory
+    lateinit var vmFactory: FavoriteVIewModelFactory
     private lateinit var binding: FragmentFavoriteBinding
-    private lateinit var courseViewModel: CourseViewModel
+    private lateinit var courseViewModel: FavoriteViewModel
     private var loadingDialog: AlertDialog? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,12 +38,12 @@ class FavoriteFragment : Fragment() {
     ): View? {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 
-        (activity?.applicationContext as CourseApplication).appComponent.inject(this)
-        courseViewModel = ViewModelProvider(this, vmFactory)[CourseViewModel::class.java]
+        (activity?.applicationContext as CommonFeatureComponent).injectCommonFeature(this)
+        courseViewModel = ViewModelProvider(this, vmFactory)[FavoriteViewModel::class.java]
 
         val recycler = binding.recycler.courseCardRecycler
         recycler.layoutManager = LinearLayoutManager(context)
-        val adapter = CourseCardStateAdapter( mutableListOf<CourseUi>(), context) {
+        val adapter = CourseCardStateAdapter(mutableListOf<CourseUi>(), context) {
             courseViewModel.onFavorite(it)
         }
         recycler.adapter = adapter

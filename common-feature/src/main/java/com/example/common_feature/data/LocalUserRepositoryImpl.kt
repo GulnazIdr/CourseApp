@@ -14,7 +14,9 @@ class LocalUserRepositoryImpl @Inject constructor(
 
     override suspend fun saveUser(user: User): FetchedResult<Boolean> {
         try {
-            userDao.addNewUser(user.toUserEntity())
+            val userEntity = user.toUserEntity()
+            userDao.addNewUser(userEntity)
+
             return FetchedResult.Success(true)
         }catch (e: Exception){
             Log.e("SAVE USER ERROR", "${e.message} ${e::class.simpleName}")
@@ -24,7 +26,8 @@ class LocalUserRepositoryImpl @Inject constructor(
 
     override suspend fun getUserById(id: String): FetchedResult<User?> {
         return try {
-            FetchedResult.Success(userDao.getUserById(id)?.toUser())
+            val fetched = userDao.getUserById(id)?.toUser()
+            FetchedResult.Success(fetched)
         }catch (e: Exception){
             Log.e("GETTING USER ERROR", "${e.message} ${e::class.simpleName}")
             FetchedResult.Error(e.message.toString());

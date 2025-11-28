@@ -4,32 +4,30 @@ import com.example.common_feature.domain.DataStoreRepository
 import com.example.common_feature.domain.FetchedResult
 import com.example.common_feature.domain.UserRepository
 import com.example.common_feature.domain.models.User
-import com.example.user_feature.domain.usecases.SAVE_USER
 import com.example.user_feature.domain.usecases.SaveUserUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SaveUserUseCaseImpl @Inject constructor(
     private val userRepository: UserRepository,
     private val dataStoreRepository: DataStoreRepository,
 ): SaveUserUseCase {
-    override suspend fun invoke(email: String, password: String): SAVE_USER {
+    override suspend fun invoke(email: String, password: String): Boolean {
         dataStoreRepository.saveCurrentUserId(email)
 
-        val res = when(userRepository.getUserById(email)){
-            is FetchedResult.Success<User?> ->
-                userRepository.saveUser(User(email, password))
-            is FetchedResult.Error<User?> -> {
-                return SAVE_USER.ERROR
-            }
-        }
+        val getUserRes = userRepository.getUserById(email)
+        return withContext(Dispatchers.IO) {
+            when (getUserRes) {
+                is FetchedResult.Success<User?> -> {
+                    userRepository.saveUser(User(email, password))
+                    true
+                }
 
-        return when(res){
-            is FetchedResult.Success<Boolean> -> {
-                SAVE_USER.SUCCESS
+                is FetchedResult.Error<User?> -> {
+                    false
+                }
             }
-
-            is FetchedResult.Error<Boolean> ->
-                SAVE_USER.ERROR
         }
     }
 }

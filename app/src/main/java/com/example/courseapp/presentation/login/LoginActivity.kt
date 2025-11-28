@@ -3,7 +3,6 @@ package com.example.courseapp.presentation.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
@@ -16,6 +15,7 @@ import com.example.courseapp.databinding.ActivityLoginBinding
 import com.example.courseapp.presentation.main.home.MainActivity
 import com.example.user_feature.presentation.AuthViewModelFactory
 import com.example.user_feature.presentation.AuthorizationViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var authorizationViewModel: AuthorizationViewModel
     private val VK_URL = "https://vk.com/"
     private val OK_URL  = "https://ok.ru/"
-    private var isUserSaved = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,23 +52,6 @@ class LoginActivity : AppCompatActivity() {
                 launch {
                     authorizationViewModel.isFormValid.collect {
                         binding.loginButton.isEnabled = it
-                    }
-                }
-
-                launch {
-                    authorizationViewModel.isLoading.collect {
-                       if(it){
-                           Toast.makeText(applicationContext, "Saving...", Toast.LENGTH_SHORT).show()
-                       }
-                    }
-                }
-
-                launch {
-                    authorizationViewModel.isUserSaved.collect {
-                        isUserSaved = it
-                        if(!it)
-                            Toast.makeText(applicationContext, "Saving failed", Toast.LENGTH_SHORT)
-                                .show()
                     }
                 }
             }
@@ -100,9 +82,12 @@ class LoginActivity : AppCompatActivity() {
                 val password = binding.passwordField.text.toString()
                 authorizationViewModel.saveUser(email, password)
 
-                if (isUserSaved)
-                    startActivity(intent)
-                finish()
+                authorizationViewModel.isUserSaved
+                    .first{it}
+                    .let {
+                        startActivity(intent)
+                        finish()
+                    }
             }
         }
     }

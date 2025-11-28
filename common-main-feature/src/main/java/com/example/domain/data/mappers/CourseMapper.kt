@@ -34,7 +34,7 @@ abstract class CourseMapper {
         )
     }
 
-    protected fun Course.toCourseEntity(): CourseEntity{
+    protected fun Course.toCourseEntity(userId: String): CourseEntity{
         return CourseEntity(
             id = id!!,
             title =title!!,
@@ -44,7 +44,7 @@ abstract class CourseMapper {
             startDate = startDate!!,
             publishDate = publishDate!!,
             isFavorite = hasLike!!,
-            userId = "",
+            userId = userId,
         )
     }
 }

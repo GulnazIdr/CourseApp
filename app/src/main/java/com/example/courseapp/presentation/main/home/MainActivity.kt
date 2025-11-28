@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.courseapp.R
 import com.example.courseapp.databinding.ActivityMainBinding
-import com.example.courseapp.presentation.main.favorite.FavoriteFragment
+import com.example.favorite_feature.presentation.fragments.FavoriteFragment
 
 class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding

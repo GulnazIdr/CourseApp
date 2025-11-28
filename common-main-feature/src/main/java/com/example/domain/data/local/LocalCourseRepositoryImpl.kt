@@ -33,7 +33,8 @@ class LocalCourseRepositoryImpl @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun saveCourses(course: Course){
         try {
-            courseDao.saveCourse(course.toCourseEntity())
+            Log.d("CALLED", course.id.toString())
+            courseDao.saveCourse(course.toCourseEntity(dataStoreRepository.getCurrentUserId()))
         }catch (e: Exception){
             Log.e("LOCAL SAVE COURSE ", "${e::class.simpleName} ${e.message}");
         }
