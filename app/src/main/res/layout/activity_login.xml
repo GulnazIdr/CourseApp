@@ -70,21 +70,43 @@
         app:layout_constraintTop_toBottomOf="@id/emailErrorField"
         android:layout_marginTop="28dp"/>
 
-    <EditText
-        android:id="@+id/passwordField"
-        style="@style/BodyMedium"
-        android:singleLine="true"
+    <LinearLayout
+        android:id="@+id/password"
         android:layout_width="match_parent"
-        android:gravity="fill_vertical"
         android:layout_height="40dp"
+        android:orientation="horizontal"
         android:layout_marginTop="8dp"
-        android:background="@drawable/custom_edit_text"
-        android:paddingStart="16dp"
-        android:hint="@string/password_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordTitle"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:background="@drawable/custom_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/passwordTitle">
+
+        <EditText
+            android:id="@+id/passwordField"
+            style="@style/BodyMedium"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="fill_vertical"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:paddingStart="16dp"
+            android:hint="@string/password_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordTitle"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/passwordVisibSwitcher"
+            android:paddingEnd="16dp"
+            android:src="@drawable/ic_password_visib_off"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/passwordErrorField"
@@ -95,7 +117,7 @@
         android:text="@string/password_error"
         android:textColor="@color/red"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordField"
+        app:layout_constraintTop_toBottomOf="@id/password"
         android:visibility="gone"/>
 
     <androidx.appcompat.widget.AppCompatButton

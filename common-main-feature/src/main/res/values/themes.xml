@@ -9,4 +9,8 @@
     <style name="ThemeOverlay.App.CustomBottomNavigationView" parent="">
         <item name="colorSecondaryContainer">@color/lightGray</item>
     </style>
+
+    <style name="loadingDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/custom_dialog</item>
+    </style>
 </resources>

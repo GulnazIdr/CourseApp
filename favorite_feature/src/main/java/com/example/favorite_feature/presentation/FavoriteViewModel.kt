@@ -37,7 +37,6 @@ class FavoriteViewModel @Inject constructor(
             _isLoading.value = true
             _courseList.value = fetchCoursesUseCase().map { it.toCourseUi() }
             _isLoading.value = false
-
         }
 
     fun onFavorite(courseId: Int) {

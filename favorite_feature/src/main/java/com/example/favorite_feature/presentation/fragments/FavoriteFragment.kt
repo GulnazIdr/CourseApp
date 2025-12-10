@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -71,8 +72,10 @@ class FavoriteFragment : Fragment() {
     fun showLoading(){
         val loadingView: View = LayoutInflater
             .from(requireContext())
-            .inflate(R.layout.loading_dialog,null) as ConstraintLayout
-        loadingDialog = AlertDialog.Builder(requireContext()).setView(loadingView).create()
+            .inflate(R.layout.loading_dialog,null) as LinearLayout
+        loadingDialog = AlertDialog.Builder(
+            requireContext(), R.style.loadingDialog
+        ).setView(loadingView).create()
         loadingDialog?.show()
     }
 }

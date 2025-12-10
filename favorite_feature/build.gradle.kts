@@ -41,8 +41,7 @@ dependencies {
     implementation("com.google.dagger:dagger:2.57.1")
     ksp("com.google.dagger:dagger-compiler:2.57.1")
 
-    implementation(project(":common-main-feature"))
-    implementation(project(":common-feature"))
+    api(project(":common-main-feature"))
 
     val nav_version = "2.9.6"
     implementation("androidx.navigation:navigation-ui:$nav_version")

@@ -24,7 +24,6 @@ class FetchCourseUseCaseImpl @Inject constructor(
             is FetchedResult.Success<List<Course>> -> {
                 val fetched =  result.data!!
                 fetched.map { it.toCourseEntity(dataStoreRepository.getCurrentUserId()) }.forEach {
-                    Log.d("CALLED2", "${localCourseRepository.isInLocalDb(it.id)}, ${it.id}")
                     if(!localCourseRepository.isInLocalDb(it.id)) {
                         localCourseRepository.saveCourses(it.toCourse())
                     }

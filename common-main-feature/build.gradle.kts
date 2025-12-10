@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.api
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -46,7 +48,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common-feature"))
+    api(project(":common-feature"))
 
     implementation("androidx.datastore:datastore-preferences:1.1.7")
 

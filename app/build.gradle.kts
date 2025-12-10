@@ -63,8 +63,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:$appcompat_version")
     implementation("androidx.appcompat:appcompat-resources:$appcompat_version")
 
-    implementation(project(":common-feature"))
-    implementation(project(":common-main-feature"))
     implementation(project(":favorite_feature"))
     implementation(project(":user_feature"))
 

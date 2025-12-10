@@ -2,13 +2,12 @@ package com.example.courseapp.presentation.main.home
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -16,21 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.courseapp.R
 import com.example.courseapp.app.CourseApplication
 import com.example.courseapp.databinding.FragmentHomeBinding
 import com.example.courseapp.presentation.main.CourseMainVIewModelFactory
 import com.example.courseapp.presentation.main.CourseViewModel
+import com.example.domain.R.layout.loading_dialog
 import com.example.domain.presentation.CourseCardStateAdapter
 import com.example.domain.presentation.models.CourseUi
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.collections.mutableListOf
-import com.example.domain.R.layout.loading_dialog
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
     @Inject
@@ -72,7 +67,6 @@ class HomeFragment : Fragment() {
                         courseViewModel.filteredCourseList,
                         courseViewModel.courseList
                     ) { isSearching, filtered, all ->
-
                         if (isSearching) filtered else all
                     }
                         .distinctUntilChanged()
@@ -95,9 +89,11 @@ class HomeFragment : Fragment() {
     fun showLoading(){
         val loadingView: View = LayoutInflater
             .from(requireContext())
-            .inflate(loading_dialog,null) as ConstraintLayout
-        loadingDialog = AlertDialog.Builder(requireContext()).setView(loadingView).create()
-        loadingDialog?.show()
+            .inflate(loading_dialog,null) as LinearLayout
+        loadingDialog = AlertDialog.Builder(
+            requireContext(), com.example.domain.R.style.loadingDialog
+        ).setView(loadingView).create()
+        loadingDialog!!.show()
     }
 
 }

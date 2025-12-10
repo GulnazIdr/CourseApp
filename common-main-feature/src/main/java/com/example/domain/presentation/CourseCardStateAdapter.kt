@@ -38,13 +38,10 @@ class CourseCardStateAdapter(
     }
 
     fun updateCourseList(list: List<CourseUi>){
-        var initialSize = courseList.size
         courseList.clear()
         courseList.addAll(list)
 
         notifyDataSetChanged()
-
-        initialSize = courseList.size
     }
 
     inner class ViewHolder(
@@ -75,7 +72,6 @@ class CourseCardStateAdapter(
         }
 
         private fun setFavoriteIcon(isFavorite: Boolean = false){
-            Log.d("Dfd", "${isFavorite}")
             var img = R.drawable.favorite_icon
             if(isFavorite)
                 img = R.drawable.favorite_filled_icon

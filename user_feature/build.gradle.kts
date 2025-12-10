@@ -44,8 +44,7 @@ dependencies {
     val nav_version = "2.9.6"
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
-    implementation(project(":common-main-feature"))
-    implementation(project(":common-feature"))
+    api(project(":common-main-feature"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -53,4 +52,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(kotlin("test"))
 }

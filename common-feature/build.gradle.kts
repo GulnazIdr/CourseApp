@@ -12,7 +12,7 @@ android {
         minSdk = 24
         targetSdk = 36
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.common_presentation.app.DaggerTestRunner"
     }
 
     buildTypes {
