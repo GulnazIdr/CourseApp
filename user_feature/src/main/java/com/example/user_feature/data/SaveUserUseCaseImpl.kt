@@ -1,5 +1,6 @@
-package com.example.user_feature.domain
+package com.example.user_feature.data
 
+import com.example.common_feature.data.mappers.UserMapper
 import com.example.common_feature.domain.DataStoreRepository
 import com.example.common_feature.domain.FetchedResult
 import com.example.common_feature.domain.UserRepository
@@ -12,22 +13,19 @@ import javax.inject.Inject
 class SaveUserUseCaseImpl @Inject constructor(
     private val userRepository: UserRepository,
     private val dataStoreRepository: DataStoreRepository,
-): SaveUserUseCase {
-    override suspend fun invoke(email: String, password: String): Boolean {
-        dataStoreRepository.saveCurrentUserId(email)
+): SaveUserUseCase,  UserMapper() {
+    override suspend fun invoke(user: User): Boolean {
+        dataStoreRepository.saveUserToList(user.toUserSerial())
+        dataStoreRepository.setCurrentUser(user.toUserSerial())
 
-        val getUserRes = userRepository.getUserById(email)
         return withContext(Dispatchers.IO) {
-            when (getUserRes) {
-                is FetchedResult.Success<User?> -> {
-                    userRepository.saveUser(User(email, password))
-                    true
-                }
-
-                is FetchedResult.Error<User?> -> {
-                    false
-                }
+            val saveUserRes = userRepository.saveUser(user)
+            var isSaved = false
+            when (saveUserRes) {
+                is FetchedResult.Success<Boolean> -> isSaved = saveUserRes.data!!
+                is FetchedResult.Error<Boolean> -> {}
             }
+            isSaved
         }
     }
 }

@@ -9,6 +9,7 @@ import com.example.domain.di.RetrofitModule
 import com.example.favorite_feature.di.FavoriteModule
 import com.example.favorite_feature.presentation.fragments.FavoriteFragment
 import com.example.user_feature.di.AuthModule
+import com.example.user_feature.presentation.MyAutofillService
 import dagger.Component
 import javax.inject.Singleton
 
@@ -21,4 +22,5 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(favoriteFragment: FavoriteFragment)
     fun inject(loginActivity: LoginActivity)
+    fun inject(autofillService: MyAutofillService)
 }

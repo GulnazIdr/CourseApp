@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp") version "2.3.3"
+    id("androidx.room")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -13,6 +15,10 @@ android {
         targetSdk = 36
 
         testInstrumentationRunner = "com.example.common_presentation.app.DaggerTestRunner"
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
     buildTypes {
@@ -34,7 +40,9 @@ android {
 }
 
 dependencies {
-    implementation("androidx.datastore:datastore-preferences:1.1.7")
+    implementation("androidx.datastore:datastore-preferences:1.2.0")
+    implementation("androidx.datastore:datastore:1.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     val room_version = "2.8.3"
     implementation("androidx.room:room-runtime:$room_version")

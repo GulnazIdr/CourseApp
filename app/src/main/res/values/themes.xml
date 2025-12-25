@@ -4,7 +4,14 @@
 
     </style>
 
-    <style name="Theme.CourseApp" parent="Base.Theme.CourseApp" />
+    <style name="Theme.CourseApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorSurface">@color/lightGray</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+
+<!--    <style name="Theme.CourseApp" parent="Base.Theme.CourseApp" />-->
 
     <style name="ThemeOverlay.App.CustomBottomNavigationView" parent="">
         <item name="colorSecondaryContainer">@color/lightGray</item>

@@ -26,10 +26,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.domain.R
 
 class HomeFragment : Fragment() {
-    @Inject
-    lateinit var vmFactory: CourseMainVIewModelFactory
+    @Inject lateinit var vmFactory: CourseMainVIewModelFactory
     private lateinit var binding: FragmentHomeBinding
     private lateinit var courseViewModel: CourseViewModel
     private var loadingDialog: AlertDialog? = null
@@ -90,9 +90,8 @@ class HomeFragment : Fragment() {
         val loadingView: View = LayoutInflater
             .from(requireContext())
             .inflate(loading_dialog,null) as LinearLayout
-        loadingDialog = AlertDialog.Builder(
-            requireContext(), com.example.domain.R.style.loadingDialog
-        ).setView(loadingView).create()
+        loadingDialog = AlertDialog.Builder(requireContext(), R.style.loadingDialog)
+            .setView(loadingView).create()
         loadingDialog!!.show()
     }
 

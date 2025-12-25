@@ -3,8 +3,7 @@ import org.gradle.kotlin.dsl.api
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
-
+    id("com.google.devtools.ksp") version "2.3.3"
 }
 
 
@@ -51,6 +50,8 @@ dependencies {
     api(project(":common-feature"))
 
     implementation("androidx.datastore:datastore-preferences:1.1.7")
+    implementation("androidx.datastore:datastore:1.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     val room_version = "2.8.3"
     implementation("androidx.room:room-runtime:$room_version")

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -26,8 +25,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
-    @Inject
-    lateinit var vmFactory: FavoriteVIewModelFactory
+    @Inject lateinit var vmFactory: FavoriteVIewModelFactory
     private lateinit var binding: FragmentFavoriteBinding
     private lateinit var courseViewModel: FavoriteViewModel
     private var loadingDialog: AlertDialog? = null
@@ -69,7 +67,7 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    fun showLoading(){
+    private fun showLoading(){
         val loadingView: View = LayoutInflater
             .from(requireContext())
             .inflate(R.layout.loading_dialog,null) as LinearLayout

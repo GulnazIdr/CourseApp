@@ -5,9 +5,8 @@ import com.example.domain.domain.usecases.SearchCourseUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class SearchCourseUseCaseImpl @Inject constructor(
+class SearchCourseUseCaseImpl @Inject constructor(): SearchCourseUseCase {
 
-): SearchCourseUseCase {
     override suspend fun invoke(key: CharSequence?, courseList: List<Course>)
     : Pair<Boolean, List<Course>> {
         val isSearching = MutableStateFlow<Boolean>(false)

@@ -23,5 +23,5 @@ interface CourseDao{
     suspend fun updateFavoriteStatus(courseId: Int, userId: String)
 
     @Query("SELECT * FROM COURSEENTITY WHERE userId=:userId")
-    suspend fun getFavoriteCourses(userId: String): List<CourseEntity>
+    suspend fun getFavoriteCourses(userId: String): List<CourseEntity>?
 }

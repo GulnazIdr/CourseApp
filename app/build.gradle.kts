@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
-    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp") version "2.3.3"
 }
 
 android {
@@ -42,6 +42,8 @@ android {
 
 dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.7")
+    implementation("androidx.datastore:datastore:1.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     val room_version = "2.8.3"
     implementation("androidx.room:room-runtime:$room_version")
@@ -59,9 +61,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
-    val appcompat_version = "1.7.1"
-    implementation("androidx.appcompat:appcompat:$appcompat_version")
-    implementation("androidx.appcompat:appcompat-resources:$appcompat_version")
+//    val appcompat_version = "1.7.1"
+//    implementation("androidx.appcompat:appcompat:$appcompat_version")
+//    implementation("androidx.appcompat:appcompat-resources:$appcompat_version")
 
     implementation(project(":favorite_feature"))
     implementation(project(":user_feature"))

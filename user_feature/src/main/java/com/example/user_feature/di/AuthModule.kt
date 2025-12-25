@@ -2,8 +2,10 @@ package com.example.user_feature.di
 
 import com.example.common_feature.domain.DataStoreRepository
 import com.example.common_feature.domain.UserRepository
-import com.example.user_feature.domain.SaveUserUseCaseImpl
+import com.example.user_feature.domain.FetchUsersUseCaseImpl
+import com.example.user_feature.data.SaveUserUseCaseImpl
 import com.example.user_feature.domain.VerifyEmailUseCaseImpl
+import com.example.user_feature.domain.usecases.FetchUsersUseCase
 import com.example.user_feature.domain.usecases.SaveUserUseCase
 import com.example.user_feature.domain.usecases.VerifyEmailUseCase
 import dagger.Module
@@ -23,4 +25,12 @@ class AuthModule {
     ): SaveUserUseCase{
         return SaveUserUseCaseImpl(userRepository, dataStoreRepository)
     }
+
+    @Provides
+    fun provideFetchUsersUseCase(
+        userRepository: UserRepository
+    ): FetchUsersUseCase{
+        return FetchUsersUseCaseImpl(userRepository)
+    }
+
 }

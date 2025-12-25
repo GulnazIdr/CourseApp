@@ -34,6 +34,8 @@
 
     <EditText
         android:id="@+id/emailField"
+        android:autofillHints="emailAddress"
+        android:importantForAutofill="yes"
         android:singleLine="true"
         style="@style/BodyMedium"
         android:gravity="fill_vertical"
@@ -84,6 +86,8 @@
         <EditText
             android:id="@+id/passwordField"
             style="@style/BodyMedium"
+            android:autofillHints="password"
+            android:importantForAutofill="yes"
             android:inputType="textPassword"
             android:singleLine="true"
             android:layout_weight="1"
@@ -215,12 +219,10 @@
             android:background="@drawable/orange_gradient_rounded"
             android:layout_marginLeft="16dp">
             <ImageView
+                android:contentDescription="@string/ok_app_icon"
                 android:src="@drawable/odnocl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
